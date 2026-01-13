@@ -50,7 +50,7 @@
     />
 
     <!-- Structured Data -->
-    <script type="application/ld+json">
+    <script id="structured-data" type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
@@ -125,6 +125,27 @@
         background: linear-gradient(120deg, #22d3ee, #6366f1);
         color: #0b1224;
       }
+      .lang-switch {
+        display: inline-flex;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(7, 12, 26, 0.7);
+        padding: 4px;
+        gap: 4px;
+        font-size: 13px;
+      }
+      .lang-switch button {
+        border-radius: 999px;
+        padding: 6px 12px;
+        color: #cbd5f5;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      .lang-switch button.active {
+        background: rgba(34, 211, 238, 0.25);
+        color: #ecfeff;
+      }
     </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1204894220949193"
      crossorigin="anonymous"></script>
@@ -167,9 +188,16 @@
   </style>
 </head>
   <body class="pb-16"><div class="max-w-6xl mx-auto px-5 lg:px-8 pt-10">
+      <div class="flex justify-center lg:justify-end mb-6">
+        <div class="lang-switch" role="tablist" aria-label="Language switcher">
+          <button type="button" data-lang="ko" class="active">한국어</button>
+          <button type="button" data-lang="en">English</button>
+        </div>
+      </div>
       <header class="flex flex-col gap-4 lg:gap-6">
         <div
           class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] pill px-3 py-1 rounded-full w-fit shadow-lg shadow-cyan-900/50"
+          data-i18n="badge"
         >
           브라우저에서만 실행 · 설치 불필요
         </div>
@@ -177,8 +205,8 @@
           class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3"
         >
           <div>
-            <h1 class="text-4xl lg:text-5xl font-semibold">오디오 편집기</h1>
-            <p class="text-slate-200 mt-2 text-lg">
+            <h1 class="text-4xl lg:text-5xl font-semibold" data-i18n="heroTitle">오디오 편집기</h1>
+            <p class="text-slate-200 mt-2 text-lg" data-i18n="heroSubtitle">
               자르기, 합치기, 내보내기 — 100% 브라우저에서 실행
             </p>
           </div>
@@ -188,6 +216,7 @@
                 id="export-wav-btn"
                 class="px-4 py-2 rounded-lg bg-white/10 text-slate-100 font-semibold border border-white/5 disabled:bg-slate-800 disabled:text-slate-500 hover:bg-white/20 transition"
                 disabled
+                data-i18n="exportWav"
               >
                 WAV 내보내기
               </button>
@@ -195,13 +224,16 @@
                 id="export-mp3-btn"
                 class="px-4 py-2 rounded-lg bg-white/10 text-slate-100 font-semibold border border-white/5 disabled:bg-slate-800 disabled:text-slate-500 hover:bg-white/20 transition"
                 disabled
+                data-i18n="exportMp3"
               >
                 MP3 내보내기
               </button>
             </div>
             <div class="text-sm text-slate-300 glass px-3 py-2 rounded-lg">
-              <div>모든 처리는 브라우저에서 이루어집니다.</div>
-              <div class="text-slate-400">
+              <div data-i18n="processingLine1">
+                모든 처리는 브라우저에서 이루어집니다.
+              </div>
+              <div class="text-slate-400" data-i18n="processingLine2">
                 큰 파일은 시간이 걸릴 수 있습니다.
               </div>
             </div>
@@ -222,16 +254,17 @@
                 accept=".mp3,.wav,audio/*"
                 class="hidden"
               />
-              <div class="text-sm text-slate-300">
+              <div class="text-sm text-slate-300" data-i18n="dropTitle">
                 오디오 파일을 여기에 끌어다 놓거나 클릭하세요
               </div>
-              <div class="text-xs text-slate-500 mt-1">
+              <div class="text-xs text-slate-500 mt-1" data-i18n="dropHint">
                 WAV / MP3 지원 · 로컬 파일만
               </div>
               <div class="mt-3 flex justify-center">
                 <button
                   id="browse-btn"
                   class="px-4 py-2 rounded-lg bg-cyan-500 text-slate-900 font-semibold hover:bg-cyan-400"
+                  data-i18n="browseBtn"
                 >
                   파일 선택
                 </button>
@@ -246,6 +279,7 @@
                   <button
                     id="play-toggle"
                     class="px-3 py-2 rounded-lg bg-cyan-500 text-slate-900 font-semibold disabled:bg-slate-700 disabled:text-slate-400"
+                    data-i18n="play"
                   >
                     재생
                   </button>
@@ -263,7 +297,7 @@
                 </div>
               </div>
               <div class="space-y-2">
-                <div class="text-xs text-slate-400">원본</div>
+                <div class="text-xs text-slate-400" data-i18n="originalLabel">원본</div>
                 <div
                   id="waveform"
                   class="h-[140px] rounded-lg overflow-hidden bg-slate-900/60"
@@ -290,12 +324,14 @@
                   <button
                     id="add-clip"
                     class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-slate-50 font-semibold disabled:bg-slate-800 disabled:text-slate-500"
+                    data-i18n="addClip"
                   >
                     클립 추가
                   </button>
                   <button
                     id="play-selection"
                     class="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/15 text-slate-100 font-semibold disabled:bg-slate-800 disabled:text-slate-500"
+                    data-i18n="playSelection"
                   >
                     선택 재생
                   </button>
@@ -305,7 +341,7 @@
                 <label
                   class="flex items-center gap-2 bg-slate-900/60 border border-white/5 rounded-lg px-2 py-2"
                 >
-                  <span class="text-slate-300">시작 (초)</span>
+                  <span class="text-slate-300" data-i18n="startSeconds">시작 (초)</span>
                   <input
                     id="start-input"
                     type="number"
@@ -317,7 +353,7 @@
                 <label
                   class="flex items-center gap-2 bg-slate-900/60 border border-white/5 rounded-lg px-2 py-2"
                 >
-                  <span class="text-slate-300">종료 (초)</span>
+                  <span class="text-slate-300" data-i18n="endSeconds">종료 (초)</span>
                   <input
                     id="end-input"
                     type="number"
@@ -331,28 +367,32 @@
                 <button
                   id="select-all"
                   class="px-3 py-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-100 font-semibold disabled:bg-slate-800 disabled:text-slate-500"
+                  data-i18n="selectAll"
                 >
                   전체 선택
                 </button>
                 <button
                   id="clear-selection"
                   class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-slate-100 font-semibold disabled:bg-slate-800 disabled:text-slate-500"
+                  data-i18n="clearSelection"
                 >
                   선택 해제
                 </button>
                 <button
                   id="mark-in"
                   class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-slate-100 font-semibold disabled:bg-slate-800 disabled:text-slate-500"
+                  data-i18n="markIn"
                 >
                   시작
                 </button>
                 <button
                   id="mark-out-add"
                   class="px-3 py-2 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-100 font-semibold disabled:bg-slate-800 disabled:text-slate-500"
+                  data-i18n="markOut"
                 >
                   종료
                 </button>
-                <div id="hint" class="text-slate-400 px-2 py-2">
+                <div id="hint" class="text-slate-400 px-2 py-2" data-i18n="selectionHint">
                   팁: 파형 위를 드래그하여 영역을 선택하세요.
                 </div>
               </div>
@@ -363,20 +403,21 @@
         <section class="card rounded-2xl p-5 lg:p-6 flex flex-col gap-4">
           <div class="flex items-center justify-between gap-3">
             <div>
-              <h2 class="text-xl font-semibold">클립</h2>
-              <div class="text-xs text-slate-400">최소 길이 0.2초</div>
+              <h2 class="text-xl font-semibold" data-i18n="clipsTitle">클립</h2>
+              <div class="text-xs text-slate-400" data-i18n="clipsMinHint">최소 길이 0.2초</div>
             </div>
             <div class="flex gap-2">
               <button
                 id="clear-clips"
                 class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-slate-100 text-sm font-semibold disabled:bg-slate-800 disabled:text-slate-500"
+                data-i18n="clearClips"
               >
                 목록 지우기
               </button>
             </div>
           </div>
           <div class="space-y-3 mb-4">
-            <div class="text-xs text-slate-400">편집된 오디오</div>
+            <div class="text-xs text-slate-400" data-i18n="editedAudio">편집된 오디오</div>
             <div
               id="edited-waveform"
               class="h-[140px] rounded-lg overflow-hidden bg-slate-900/60"
@@ -385,18 +426,19 @@
               <button
                 id="preview-btn"
                 class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 font-semibold disabled:from-slate-700 disabled:to-slate-700 disabled:text-slate-400"
+                data-i18n="previewListen"
               >
                 듣기
               </button>
               <div id="edited-time" class="text-slate-300 text-sm">0:00</div>
             </div>
           </div>
-          <div id="clips-empty" class="text-sm text-slate-400">
+          <div id="clips-empty" class="text-sm text-slate-400" data-i18n="clipsEmpty">
             클립이 없습니다. 영역을 선택하고 "클립 추가"를 누르세요.
           </div>
           <div id="clips-list" class="flex flex-col gap-3"></div>
           <div class="border-t border-white/5 pt-4">
-            <div class="text-xs text-slate-400">
+            <div class="text-xs text-slate-400" data-i18n="fadeInfo">
               클립당 페이드 (0–2초). 클립은 목록 순서대로 연결됩니다.
             </div>
           </div>
@@ -409,6 +451,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-medium transition-colors duration-200"
+          data-i18n="viewOtherServices"
           >다른 서비스 보기</a
         >
       </div>
@@ -455,7 +498,7 @@
           <label
             class="flex items-center gap-2 bg-slate-900/60 border border-white/5 rounded-lg px-2 py-1"
           >
-            <span>시작</span>
+            <span class="clip-start-label">시작</span>
             <input
               type="number"
               step="0.01"
@@ -466,7 +509,7 @@
           <label
             class="flex items-center gap-2 bg-slate-900/60 border border-white/5 rounded-lg px-2 py-1"
           >
-            <span>종료</span>
+            <span class="clip-end-label">종료</span>
             <input
               type="number"
               step="0.01"
@@ -475,7 +518,7 @@
             />
           </label>
           <div class="flex items-center gap-2">
-            <label class="text-slate-400">페이드 인</label>
+            <label class="text-slate-400 clip-fade-in-label">페이드 인</label>
             <input
               type="number"
               min="0"
@@ -485,7 +528,7 @@
             />
           </div>
           <div class="flex items-center gap-2">
-            <label class="text-slate-400">페이드 아웃</label>
+            <label class="text-slate-400 clip-fade-out-label">페이드 아웃</label>
             <input
               type="number"
               min="0"
@@ -495,7 +538,8 @@
             />
           </div>
           <div class="ml-auto text-slate-400">
-            길이: <span class="clip-duration text-slate-100"></span>
+            <span class="clip-length-label">길이:</span>
+            <span class="clip-duration text-slate-100"></span>
           </div>
         </div>
         <div class="w-full h-1 rounded bg-white/10 overflow-hidden">
@@ -505,6 +549,289 @@
     </template>
 
     <script>
+      const translations = {
+        ko: {
+          metaTitle: "오디오 편집기 - 온라인 무료 오디오 자르기, 합치기, 편집 도구",
+          metaDescription:
+            "브라우저에서 바로 사용할 수 있는 무료 오디오 편집기. 오디오 파일 자르기, 합치기, 편집 및 WAV 내보내기 기능을 제공합니다. 설치 불필요, 100% 무료 오디오 편집 도구.",
+          metaOgTitle:
+            "오디오 편집기 - 온라인 무료 오디오 자르기, 합치기, 편집 도구",
+          metaOgDescription:
+            "브라우저에서 바로 사용할 수 있는 무료 오디오 편집기. 오디오 파일 자르기, 합치기, 편집 및 WAV 내보내기 기능을 제공합니다.",
+          metaTwitterTitle:
+            "오디오 편집기 - 온라인 무료 오디오 자르기, 합치기, 편집 도구",
+          metaTwitterDescription:
+            "브라우저에서 바로 사용할 수 있는 무료 오디오 편집기. 오디오 파일 자르기, 합치기, 편집 및 WAV 내보내기 기능을 제공합니다.",
+          ogLocale: "ko_KR",
+          schemaName: "오디오 편집기",
+          schemaDescription:
+            "브라우저에서 바로 사용할 수 있는 무료 오디오 편집기. 오디오 파일 자르기, 합치기, 편집 및 WAV 내보내기 기능을 제공합니다.",
+          schemaFeatures: [
+            "오디오 파일 자르기",
+            "오디오 파일 합치기",
+            "오디오 편집",
+            "WAV 내보내기",
+            "MP3 내보내기",
+            "페이드 인/아웃",
+          ],
+          badge: "브라우저에서만 실행 · 설치 불필요",
+          heroTitle: "오디오 편집기",
+          heroSubtitle: "자르기, 합치기, 내보내기 — 100% 브라우저에서 실행",
+          exportWav: "WAV 내보내기",
+          exportMp3: "MP3 내보내기",
+          processingLine1: "모든 처리는 브라우저에서 이루어집니다.",
+          processingLine2: "큰 파일은 시간이 걸릴 수 있습니다.",
+          dropTitle: "오디오 파일을 여기에 끌어다 놓거나 클릭하세요",
+          dropHint: "WAV / MP3 지원 · 로컬 파일만",
+          browseBtn: "파일 선택",
+          play: "재생",
+          pause: "일시정지",
+          playSelection: "선택 재생",
+          playSelectionActive: "재생 중...",
+          originalLabel: "원본",
+          addClip: "클립 추가",
+          selectionTooShort: "선택 영역이 너무 짧습니다 (최소 0.2초).",
+          selectionHint:
+            "드래그하거나 숫자를 조정하거나 전체 선택을 사용하세요.",
+          startSeconds: "시작 (초)",
+          endSeconds: "종료 (초)",
+          selectAll: "전체 선택",
+          clearSelection: "선택 해제",
+          markIn: "시작",
+          markOut: "종료",
+          clipsTitle: "클립",
+          clipsMinHint: "최소 길이 0.2초",
+          clearClips: "목록 지우기",
+          editedAudio: "편집된 오디오",
+          previewListen: "듣기",
+          stop: "정지",
+          clipsEmpty:
+            '클립이 없습니다. 영역을 선택하고 "클립 추가"를 누르세요.',
+          fadeInfo:
+            "클립당 페이드 (0–2초). 클립은 목록 순서대로 연결됩니다.",
+          viewOtherServices: "다른 서비스 보기",
+          clipPlay: "재생",
+          clipSelect: "선택",
+          clipDelete: "삭제",
+          clipStart: "시작",
+          clipEnd: "종료",
+          clipFadeIn: "페이드 인",
+          clipFadeOut: "페이드 아웃",
+          clipLengthLabel: "길이:",
+          clipName: "클립 {index}",
+          durationLabel: "길이: {time}",
+          rendering: "렌더링 중...",
+          mp3Unsupported:
+            "MP3 내보내기는 현재 지원되지 않습니다. WAV 형식으로 내보내주세요.",
+        },
+        en: {
+          metaTitle: "Audio Editor - Free Online Cut, Merge, and Edit Tool",
+          metaDescription:
+            "A free audio editor that runs in your browser. Trim, merge, and edit audio files, then export to WAV. No install, 100% free.",
+          metaOgTitle: "Audio Editor - Free Online Cut, Merge, and Edit Tool",
+          metaOgDescription:
+            "Edit audio in your browser. Trim, merge, and export WAV files instantly.",
+          metaTwitterTitle:
+            "Audio Editor - Free Online Cut, Merge, and Edit Tool",
+          metaTwitterDescription:
+            "Edit audio in your browser. Trim, merge, and export WAV files instantly.",
+          ogLocale: "en_US",
+          schemaName: "Audio Editor",
+          schemaDescription:
+            "A free in-browser audio editor to trim, merge, and export WAV files.",
+          schemaFeatures: [
+            "Trim audio files",
+            "Merge audio files",
+            "Edit audio",
+            "Export WAV",
+            "Export MP3",
+            "Fade in/out",
+          ],
+          badge: "Runs in your browser · No install required",
+          heroTitle: "Audio Editor",
+          heroSubtitle: "Cut, merge, export — 100% in your browser",
+          exportWav: "Export WAV",
+          exportMp3: "Export MP3",
+          processingLine1: "All processing happens in your browser.",
+          processingLine2: "Large files may take longer.",
+          dropTitle: "Drag and drop an audio file here or click",
+          dropHint: "Supports WAV/MP3 · Local files only",
+          browseBtn: "Choose File",
+          play: "Play",
+          pause: "Pause",
+          playSelection: "Play Selection",
+          playSelectionActive: "Playing...",
+          originalLabel: "Original",
+          addClip: "Add Clip",
+          selectionTooShort: "Selection is too short (minimum 0.2s).",
+          selectionHint:
+            "Drag the waveform, adjust numbers, or use Select All.",
+          startSeconds: "Start (sec)",
+          endSeconds: "End (sec)",
+          selectAll: "Select All",
+          clearSelection: "Clear Selection",
+          markIn: "Mark In",
+          markOut: "Mark Out",
+          clipsTitle: "Clips",
+          clipsMinHint: "Minimum length 0.2s",
+          clearClips: "Clear List",
+          editedAudio: "Edited Audio",
+          previewListen: "Listen",
+          stop: "Stop",
+          clipsEmpty: 'No clips yet. Select a region and click "Add Clip".',
+          fadeInfo: "Fade per clip (0–2s). Clips are stitched in list order.",
+          viewOtherServices: "View other services",
+          clipPlay: "Play",
+          clipSelect: "Select",
+          clipDelete: "Delete",
+          clipStart: "Start",
+          clipEnd: "End",
+          clipFadeIn: "Fade In",
+          clipFadeOut: "Fade Out",
+          clipLengthLabel: "Length:",
+          clipName: "Clip {index}",
+          durationLabel: "Length: {time}",
+          rendering: "Rendering...",
+          mp3Unsupported:
+            "MP3 export is not supported yet. Please export as WAV.",
+        },
+      };
+
+      let currentLang = "ko";
+
+      function t(key, vars = {}) {
+        const langTable = translations[currentLang] || translations.ko;
+        const template = langTable[key] ?? translations.ko[key] ?? key;
+        if (typeof template !== "string") {
+          return template;
+        }
+        return template.replace(/\{(\w+)\}/g, (_, token) =>
+          vars[token] !== undefined ? vars[token] : `{${token}}`
+        );
+      }
+
+      function getSchemaFeatures() {
+        const langTable = translations[currentLang] || translations.ko;
+        return langTable.schemaFeatures || translations.ko.schemaFeatures;
+      }
+
+      function applyTranslations() {
+        document.title = t("metaTitle");
+        const desc = document.querySelector('meta[name="description"]');
+        if (desc) desc.setAttribute("content", t("metaDescription"));
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute("content", t("metaOgTitle"));
+        const ogDesc = document.querySelector(
+          'meta[property="og:description"]'
+        );
+        if (ogDesc) ogDesc.setAttribute("content", t("metaOgDescription"));
+        const twitterTitle = document.querySelector(
+          'meta[name="twitter:title"]'
+        );
+        if (twitterTitle) twitterTitle.setAttribute("content", t("metaTwitterTitle"));
+        const twitterDesc = document.querySelector(
+          'meta[name="twitter:description"]'
+        );
+        if (twitterDesc) {
+          twitterDesc.setAttribute("content", t("metaTwitterDescription"));
+        }
+        const ogLocale = document.querySelector('meta[property="og:locale"]');
+        if (ogLocale) ogLocale.setAttribute("content", t("ogLocale"));
+
+        const schemaEl = document.getElementById("structured-data");
+        if (schemaEl) {
+          const schema = {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: t("schemaName"),
+            description: t("schemaDescription"),
+            url: "https://funnyfunny.cloud/audio-editor",
+            applicationCategory: "MultimediaApplication",
+            operatingSystem: "Any",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "KRW",
+            },
+            featureList: getSchemaFeatures(),
+            browserRequirements: "Requires JavaScript. Requires HTML5.",
+            softwareVersion: "1.0",
+            provider: {
+              "@type": "Organization",
+              name: "FunnyFunny Cloud",
+              url: "https://funnyfunny.cloud/",
+            },
+          };
+          schemaEl.textContent = JSON.stringify(schema, null, 2);
+        }
+
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          el.textContent = t(el.dataset.i18n);
+        });
+      }
+
+      function syncDynamicLabels() {
+        if (playToggle) {
+          playToggle.textContent =
+            wavesurfer && wavesurfer.isPlaying() ? t("pause") : t("play");
+        }
+        if (playSelectionBtn) {
+          playSelectionBtn.textContent = isSelectionPlaying
+            ? t("playSelectionActive")
+            : t("playSelection");
+        }
+        if (previewBtn) {
+          previewBtn.textContent =
+            editedWaveform && editedWaveform.isPlaying()
+              ? t("stop")
+              : t("previewListen");
+        }
+        if (exportWavBtn && isRendering) {
+          exportWavBtn.textContent = t("rendering");
+        }
+        if (audioBuffer) {
+          fileDurationEl.textContent = t("durationLabel", {
+            time: formatTime(audioBuffer.duration),
+          });
+        }
+        if (selectionRegion) {
+          updateSelectionTimes(selectionRegion.start, selectionRegion.end);
+        } else {
+          hintEl.textContent = t("selectionHint");
+        }
+        if (clips.length) {
+          renderClips();
+        }
+      }
+
+      function setLang(lang, options = {}) {
+        const nextLang = translations[lang] ? lang : "ko";
+        currentLang = nextLang;
+        document.documentElement.lang = nextLang;
+        localStorage.setItem("preferredLang", nextLang);
+        document.querySelectorAll(".lang-switch button").forEach((button) => {
+          button.classList.toggle("active", button.dataset.lang === nextLang);
+        });
+        applyTranslations();
+        syncDynamicLabels();
+
+        if (options.updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("lang", nextLang);
+          window.history.replaceState({}, "", url);
+        }
+      }
+
+      function detectLang() {
+        const params = new URLSearchParams(window.location.search);
+        const paramLang = params.get("lang");
+        if (translations[paramLang]) return paramLang;
+        const stored = localStorage.getItem("preferredLang");
+        if (translations[stored]) return stored;
+        const browser = navigator.language?.toLowerCase() || "";
+        return browser.startsWith("en") ? "en" : "ko";
+      }
+
       const dropZone = document.getElementById("drop-zone");
       const fileInput = document.getElementById("file-input");
       const fileNameEl = document.getElementById("file-name");
@@ -544,6 +871,7 @@
       let isRendering = false;
       let liveExtend = false;
       let activeClipPlay = null;
+      let isSelectionPlaying = false;
 
       const MIN_CLIP_DURATION = 0.2;
 
@@ -609,18 +937,20 @@
         });
 
         wavesurfer.on("play", () => {
-          playToggle.textContent = "일시정지";
+          playToggle.textContent = t("pause");
         });
 
         wavesurfer.on("pause", () => {
-          playToggle.textContent = "재생";
-          playSelectionBtn.textContent = "선택 재생";
+          playToggle.textContent = t("play");
+          playSelectionBtn.textContent = t("playSelection");
           liveExtend = false;
+          isSelectionPlaying = false;
         });
 
         wavesurfer.on("finish", () => {
-          playToggle.textContent = "재생";
+          playToggle.textContent = t("play");
           liveExtend = false;
+          isSelectionPlaying = false;
         });
 
         addClipBtn.disabled = true;
@@ -662,15 +992,15 @@
         });
 
         editedWaveform.on("play", () => {
-          previewBtn.textContent = "정지";
+          previewBtn.textContent = t("stop");
         });
 
         editedWaveform.on("pause", () => {
-          previewBtn.textContent = "듣기";
+          previewBtn.textContent = t("previewListen");
         });
 
         editedWaveform.on("finish", () => {
-          previewBtn.textContent = "듣기";
+          previewBtn.textContent = t("previewListen");
         });
 
         editedWaveform.on("interaction", () => {
@@ -729,12 +1059,13 @@
         clearSelectionBtn.disabled = !selectionRegion;
         markInBtn.disabled = !audioBuffer;
         markOutAddBtn.disabled = !audioBuffer;
-        playSelectionBtn.textContent = "선택 재생";
+        isSelectionPlaying = false;
+        playSelectionBtn.textContent = t("playSelection");
         startInput.value = selectionRegion ? start.toFixed(3) : "";
         endInput.value = selectionRegion ? end.toFixed(3) : "";
         hintEl.textContent = tooShort
-          ? "선택 영역이 너무 짧습니다 (최소 0.2초)."
-          : "드래그하거나 숫자를 조정하거나 전체 선택을 사용하세요.";
+          ? t("selectionTooShort")
+          : t("selectionHint");
       }
 
       async function handleFile(file) {
@@ -794,9 +1125,9 @@
         });
 
         // 오디오 버퍼 디코딩이 완료되었으므로 바로 UI 업데이트
-        fileDurationEl.textContent = `길이: ${formatTime(
-          audioBuffer.duration
-        )}`;
+        fileDurationEl.textContent = t("durationLabel", {
+          time: formatTime(audioBuffer.duration),
+        });
         playToggle.disabled = false;
         clearClipsBtn.disabled = false;
         selectAllBtn.disabled = false;
@@ -915,7 +1246,7 @@
           fadeOutInput.value = clip.fadeOut;
 
           nameInput.addEventListener("input", (e) => {
-            clip.name = e.target.value || `클립 ${index + 1}`;
+            clip.name = e.target.value || t("clipName", { index: index + 1 });
           });
 
           fadeInInput.addEventListener("input", (e) => {
@@ -973,6 +1304,15 @@
           selectClipBtn.addEventListener("click", () =>
             setSelection(clip.start, clip.end)
           );
+
+          playClipBtn.textContent = t("clipPlay");
+          selectClipBtn.textContent = t("clipSelect");
+          clone.querySelector(".delete").textContent = t("clipDelete");
+          clone.querySelector(".clip-start-label").textContent = t("clipStart");
+          clone.querySelector(".clip-end-label").textContent = t("clipEnd");
+          clone.querySelector(".clip-fade-in-label").textContent = t("clipFadeIn");
+          clone.querySelector(".clip-fade-out-label").textContent = t("clipFadeOut");
+          clone.querySelector(".clip-length-label").textContent = t("clipLengthLabel");
 
           clipsList.appendChild(clone);
         }
@@ -1032,7 +1372,7 @@
         if (duration < MIN_CLIP_DURATION) return;
         const clip = {
           id: crypto.randomUUID(),
-          name: `클립 ${clips.length + 1}`,
+          name: t("clipName", { index: clips.length + 1 }),
           start,
           end,
           fadeIn: 0,
@@ -1153,20 +1493,20 @@
 
         if (editedWaveform.isPlaying()) {
           editedWaveform.pause();
-          previewBtn.textContent = "듣기";
+          previewBtn.textContent = t("previewListen");
         } else {
           if (audioCtx && audioCtx.state === "suspended") {
             await audioCtx.resume();
           }
           editedWaveform.play();
-          previewBtn.textContent = "정지";
+          previewBtn.textContent = t("stop");
         }
       }
 
       async function exportWav() {
         if (isRendering) return;
         isRendering = true;
-        exportWavBtn.textContent = "렌더링 중...";
+        exportWavBtn.textContent = t("rendering");
         exportWavBtn.disabled = true;
         exportMp3Btn.disabled = true;
         try {
@@ -1181,7 +1521,7 @@
           URL.revokeObjectURL(url);
         } finally {
           isRendering = false;
-          exportWavBtn.textContent = "WAV 내보내기";
+          exportWavBtn.textContent = t("exportWav");
           exportWavBtn.disabled = clips.length === 0;
           exportMp3Btn.disabled = clips.length === 0;
         }
@@ -1193,9 +1533,7 @@
         // WAV를 내보내고 사용자가 별도로 변환하도록 안내하거나
         // 서버 측 처리가 필요합니다
         // 여기서는 일단 WAV로 내보내되 파일명만 .mp3로 변경합니다
-        alert(
-          "MP3 내보내기는 현재 지원되지 않습니다. WAV 형식으로 내보내주세요."
-        );
+        alert(t("mp3Unsupported"));
         // 향후 MP3 인코딩 라이브러리(lame.js 등)를 사용하여 구현 가능
         return;
       }
@@ -1208,7 +1546,7 @@
         const start = Math.min(startVal, endVal);
         const end = Math.max(startVal, endVal);
         if (end - start < MIN_CLIP_DURATION) {
-          hintEl.textContent = "선택 영역이 너무 짧습니다 (최소 0.2초).";
+          hintEl.textContent = t("selectionTooShort");
           return;
         }
         setSelection(start, end);
@@ -1219,7 +1557,8 @@
         const { start, end } = selectionRegion;
         if (end - start <= 0) return;
         wavesurfer.play(start, end);
-        playSelectionBtn.textContent = "재생 중...";
+        isSelectionPlaying = true;
+        playSelectionBtn.textContent = t("playSelectionActive");
       }
 
       function stopActiveClip() {
@@ -1235,7 +1574,7 @@
           activeClipPlay.progressEl.style.width = "0%";
         }
         if (activeClipPlay?.button) {
-          activeClipPlay.button.textContent = "재생";
+          activeClipPlay.button.textContent = t("clipPlay");
         }
         activeClipPlay = null;
       }
@@ -1274,7 +1613,7 @@
         source.connect(gain).connect(audioCtx.destination);
         source.start(startTime, clip.start, duration);
 
-        button.textContent = "정지";
+        button.textContent = t("stop");
         progressEl.style.width = "0%";
 
         const tick = () => {
@@ -1378,7 +1717,9 @@
         playToggle.addEventListener("click", () => {
           if (!wavesurfer) return;
           wavesurfer.playPause();
-          playToggle.textContent = wavesurfer.isPlaying() ? "일시정지" : "재생";
+          playToggle.textContent = wavesurfer.isPlaying()
+            ? t("pause")
+            : t("play");
         });
 
         addClipBtn.addEventListener("click", addClipFromSelection);
@@ -1400,6 +1741,14 @@
         exportWavBtn.addEventListener("click", exportWav);
         exportMp3Btn.addEventListener("click", exportMp3);
       }
+
+      document.querySelectorAll(".lang-switch button").forEach((button) => {
+        button.addEventListener("click", () => {
+          setLang(button.dataset.lang, { updateUrl: true });
+        });
+      });
+
+      setLang(detectLang(), { updateUrl: false });
 
       initWaveSurfer();
       initEditedWaveform();
